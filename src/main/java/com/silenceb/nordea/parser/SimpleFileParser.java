@@ -1,6 +1,7 @@
 package com.silenceb.nordea.parser;
 
 
+import com.silenceb.nordea.exporter.Exporter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.slf4j.Logger;
@@ -16,6 +17,12 @@ public class SimpleFileParser implements Parser {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final Exporter exporter;
+
+    public SimpleFileParser(Exporter exporter) {
+        this.exporter = exporter;
+    }
+
     @Override
     public void parse(String fileName, ParserCallback callback) {
         File inputFile = new File(fileName);
@@ -26,6 +33,8 @@ public class SimpleFileParser implements Parser {
             }
         } catch (IOException ex) {
             logger.error("Error processing file", ex);
+        } finally {
+            exporter.notifyFinished();
         }
     }
 }

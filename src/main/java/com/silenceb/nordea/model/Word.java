@@ -19,8 +19,8 @@ public class Word {
     private Word(String word) throws IllegalArgumentException {
         validateNullWord(word);
         validateEmptyWord(word);
-        this.isLastWordInSentence = word.trim().endsWith(".");
-        this.word = word.trim().split("\\.")[0].trim();
+        this.isLastWordInSentence = word.trim().matches("^.*[.?!;]$");
+        this.word = word.trim().replaceAll("[.?!;:()]", "").trim();
     }
 
     private void validateNullWord(String word) {
@@ -44,5 +44,7 @@ public class Word {
         return word;
     }
 
-
+    public String getWord() {
+        return word;
+    }
 }

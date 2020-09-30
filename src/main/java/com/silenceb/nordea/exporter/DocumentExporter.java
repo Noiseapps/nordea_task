@@ -1,10 +1,14 @@
 package com.silenceb.nordea.exporter;
 
-import com.silenceb.nordea.model.Document;
+import com.silenceb.nordea.model.Sentence;
 
 public interface DocumentExporter {
 
-    String export(Document document);
+    void export(Sentence sentence);
 
-    ExportType type();
+    boolean handles(ExportType... exportType);
+
+    void writeFooter();
+
+    void writeHeader();
 }
