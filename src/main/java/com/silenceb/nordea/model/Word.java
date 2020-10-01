@@ -1,5 +1,6 @@
 package com.silenceb.nordea.model;
 
+import com.silenceb.nordea.util.Abbreviations;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
@@ -19,8 +20,24 @@ public class Word {
     private Word(String word) throws IllegalArgumentException {
         validateNullWord(word);
         validateEmptyWord(word);
-        this.isLastWordInSentence = word.trim().matches("^.*[.?!;]$");
-        this.word = word.trim().replaceAll("[.?!;:()]", "").trim();
+        this.isLastWordInSentence = checkLastWordInSentence(word);
+        this.word = cleanupWord(word);
+    }
+
+    private String cleanupWord(String word) {
+        String trimmed = word.trim();
+        trimmed = trimmed.replaceAll("[?!;:()]", "");
+        if (!Abbreviations.isCommonAbbreviation(word)) {
+            trimmed = trimmed.replaceAll("\\.", "");
+        }
+        return trimmed.trim();
+    }
+
+    private boolean checkLastWordInSentence(String word) {
+        String trimmed = word.trim();
+        boolean properEnding = trimmed.matches("^.*[.?!]$");
+        boolean isCommonAbbreviation = Abbreviations.isCommonAbbreviation(word);
+        return properEnding && !isCommonAbbreviation;
     }
 
     private void validateNullWord(String word) {
@@ -41,10 +58,6 @@ public class Word {
 
     @Override
     public String toString() {
-        return word;
-    }
-
-    public String getWord() {
         return word;
     }
 }

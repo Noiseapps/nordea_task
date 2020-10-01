@@ -21,6 +21,7 @@ class WordTest extends Specification {
             "   Word"     | "Word"
             "   WORD "    | "WORD"
             "你这肮脏的掠夺者   " | "你这肮脏的掠夺者"
+            "Mr."         | "Mr."
     }
 
     def "Invalid word (#input) should return #output"() {
@@ -40,12 +41,12 @@ class WordTest extends Specification {
         then:
             word.isLastWordInSentence() == output
         where:
-            input       | output
-            "Quick"     | false
-            "Quick    " | false
+            input        | output
+            "Quick"      | false
+            "Quick    "  | false
             "Quick   . " | true
             "Quick.    " | true
-            "Quick." | true
+            "Quick."     | true
 
 
     }
