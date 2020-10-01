@@ -35,6 +35,10 @@ public class Sentence {
         return wordsAsStrings();
     }
 
+    public boolean isEmpty() {
+        return words.isEmpty();
+    }
+
     @Override
     public String toString() {
         return String.join(" ", wordsAsStrings()) + ".";

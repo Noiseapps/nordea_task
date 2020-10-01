@@ -23,10 +23,10 @@ public class ExporterImpl implements Exporter {
     @Override
     public void setup(ExportType... exportTypes) {
         this.exportTypes = exportTypes;
-        processOnAllExporters(DocumentExporter::writeHeader);
+        processOnAllExporters(DocumentExporter::start);
         exporters.forEach(documentExporter -> {
             if (documentExporter.handles(exportTypes)) {
-                documentExporter.writeHeader();
+                documentExporter.start();
             }
         });
     }
@@ -44,7 +44,7 @@ public class ExporterImpl implements Exporter {
 
     @Override
     public void notifyFinished() {
-        processOnAllExporters(DocumentExporter::writeFooter);
+        processOnAllExporters(DocumentExporter::finish);
     }
 
     private void processOnAllExporters(DocumentExporterAction action) {

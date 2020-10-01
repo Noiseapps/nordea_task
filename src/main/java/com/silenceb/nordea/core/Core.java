@@ -5,14 +5,12 @@ import com.silenceb.nordea.exporter.ExportType;
 import com.silenceb.nordea.exporter.Exporter;
 import com.silenceb.nordea.parser.Parser;
 import com.silenceb.nordea.tokenizer.Tokenizer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@Slf4j
 public class Core implements CommandLineRunner {
 
     private final Parser parser;
@@ -36,6 +34,5 @@ public class Core implements CommandLineRunner {
             List<String> tokenizedLine = tokenizer.tokenizeLine(line);
             analyzer.analyze(tokenizedLine);
         });
-//        System.out.println(document.toString());
     }
 }

@@ -15,7 +15,7 @@ public class LineTokenizer implements Tokenizer {
         if (line == null || line.trim().isEmpty()) {
             return new ArrayList<>();
         }
-        String[] wordsInLine = line.split("[\\s,-]");
+        String[] wordsInLine = line.split("[\\s,-]* +");
         return Arrays.stream(wordsInLine)
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())

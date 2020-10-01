@@ -16,6 +16,9 @@ public class LineAnalyzer implements Analyzer {
     private final Exporter exporter;
 
     public LineAnalyzer(Exporter exporter) {
+        if(exporter == null) {
+            throw new IllegalArgumentException("Analyzer requires exporter instance");
+        }
         this.exporter = exporter;
     }
 
@@ -28,7 +31,9 @@ public class LineAnalyzer implements Analyzer {
     }
 
     public void newSentence() {
-        exporter.addSentence(currentSentence);
+        if(!currentSentence.isEmpty()) {
+            exporter.addSentence(currentSentence);
+        }
         currentSentence = new Sentence();
     }
 
